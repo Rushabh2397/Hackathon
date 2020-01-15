@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.daos.IUserDao;
+import com.app.pojos.Books;
 import com.app.pojos.Copies;
 import com.app.pojos.Users;
 
@@ -23,6 +25,7 @@ import com.app.pojos.Users;
 public class UserController {
 	@Autowired 
 	private IUserDao dao;
+	
 	
 	public UserController() {
 		// TODO Auto-generated constructor stu
@@ -64,6 +67,44 @@ public class UserController {
 			return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
 		} 
 	}
+//	
+//	@GetMapping("/{u_id}")
+//	public ResponseEntity<?> edit(int u_id)
+//	{
+//		System.out.println("inside edit of user Controller");
+//		Users e=dao.editProfile(u_id);
+//		
+//		
+//	}
+
+	@GetMapping("/{edit}")
+	public ResponseEntity<?> edit(Users u)
+	{
+		System.out.println("inside edit of user Controller");
+		dao.editProfile(u);
+		
+		return new ResponseEntity<String>(HttpStatus.OK);
+	}
+	@GetMapping("/{u_id}")
+	public ResponseEntity<?> getuserById(@PathVariable int u_id)
+	{
+		System.out.println("inside edit of user Controller");
+	  Users t=dao.getbyId(u_id);
+		
+		return new ResponseEntity<Users>(t,HttpStatus.OK);
+	}
+	
+//	@GetMapping("/{subject}") 
+//	public ResponseEntity<?> findByNames(@PathVariable String subject)
+//	{
+//		System.out.println("inside bookcontroller findbyNames");
+//		List<Books> b=dao.findByName(subject);
+//		if(b.size()==0)
+//		{
+//			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT); 
+//		}
+//		return new ResponseEntity<List<Books>>(b, HttpStatus.OK);
+//	}
 	
 
 //	

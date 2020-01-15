@@ -8,6 +8,9 @@ public interface IUserDao {
 	Users validateUser(String email,String password);
 	Users addUserDetails(Users u);
 	List<Users> getAllUsers();
+	void editProfile(Users u);
+	Users getbyId(int u_id);
+	
 	
 
 }

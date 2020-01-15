@@ -48,6 +48,20 @@ public class UserDaoImpl implements IUserDao {
 		
 		
 	}
+
+	@Override
+	public void editProfile(Users u ) {
+		
+		 sf.getCurrentSession().saveOrUpdate(u);
+		
+	}
+
+	@Override
+	public Users getbyId(int u_id) {
+		// TODO Auto-generated method stub
+		
+		return sf.getCurrentSession().get(Users.class, u_id);
+	}
 	
 
 }
