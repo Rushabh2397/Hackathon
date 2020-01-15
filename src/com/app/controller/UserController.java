@@ -1,9 +1,12 @@
 package com.app.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,17 +26,37 @@ public class UserController {
 		System.out.println("inside user Controler"+getClass().getName());
 	}
 	
-	public ResponseEntity<?> processLoginForm(@RequestParam String email,@RequestParam String password)
+	@GetMapping
+	public  ResponseEntity<?> validate(@RequestParam String email,@RequestParam String password)
 	{
-		Users u=dao.validateUser(email, password);
-		if(u.getEmail().equals(email))
+		System.out.println("inside validate method");
+		Users d=dao.validateUser(email, password);
+		if(d.getEmail().equals(email) && d.getPasswd().equals(password) )
 		{
-			return new ResponseEntity<Users>(u,HttpStatus.OK);
+			return new ResponseEntity<Users>(d, HttpStatus.OK);
 		}
-		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
-		
-		
+		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT); 
 	}
 	
 	
+	@GetMapping("/listu") 
+	public ResponseEntity<?>  listUser()
+	{
+		System.out.println("in list users");
+		List<Users> s=dao.getAllUsers();
+		if(s.size()==0)
+			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT); 
+		return new ResponseEntity<List<Users>>(s, HttpStatus.OK);
+	}
+	
+
+//	
+//	@GetMapping
+//	public ResponseEntity<?> listEmps() {
+//		System.out.println("in list emps");
+//		List<Employee> allEmps = service.getAllEmps();
+//		if (allEmps.size() == 0)
+//			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+//		return new ResponseEntity<List<Employee>>(allEmps, HttpStatus.OK);
+//	}
 }

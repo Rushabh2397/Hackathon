@@ -12,6 +12,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table
 public class payments {
@@ -83,6 +86,7 @@ public class payments {
 	
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "userid")
 	public Users getUsr() {
 		return usr;

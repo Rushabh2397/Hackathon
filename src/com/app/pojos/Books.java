@@ -1,14 +1,19 @@
 package com.app.pojos;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name = "books" )
@@ -17,7 +22,7 @@ public class Books {
 	private Integer book_id;
 	private String name,author,subject,isbn;
 	private double price;
-	private List<Copies> copy ;
+	private List<Copies> copy=new ArrayList<>() ;
 	public Books() {
 		// TODO Auto-generated constructor stub
 	}
@@ -81,7 +86,8 @@ public class Books {
 		this.price = price;
 	}
 
-	@OneToMany(mappedBy ="book",cascade = CascadeType.ALL  )
+	@OneToMany(mappedBy ="book",cascade = CascadeType.ALL ,fetch = FetchType.EAGER )
+	@Fetch(FetchMode.SUBSELECT)
 	public List<Copies> getCopy() {
 		return copy;
 	}

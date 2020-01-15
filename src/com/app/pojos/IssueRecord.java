@@ -12,6 +12,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "issuerecord")
 public class IssueRecord {
@@ -88,6 +90,7 @@ public class IssueRecord {
 
     @ManyToOne
     @JoinColumn(name ="memberid")
+    @JsonIgnore
 	public Users getUsr() {
 		return usr;
 	}

@@ -1,5 +1,6 @@
 package com.app.pojos;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -7,11 +8,15 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name = "users")
@@ -21,8 +26,8 @@ public class Users {
 	private String name,email,passwd;
 	private int phone;
 	private Role role;
-	private   List<payments >pay;
-	private  List<IssueRecord> issue;
+	private   List<payments >pay=new ArrayList<payments>();
+	private  List<IssueRecord> issue=new ArrayList<>();
 	
 	public Users() {
 		// TODO Auto-generated constructor stub
@@ -103,7 +108,8 @@ public class Users {
 
 	
 	
-	@OneToMany(mappedBy ="usr",cascade = CascadeType.ALL)
+	@OneToMany(mappedBy ="usr",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	@Fetch(FetchMode.SUBSELECT)
     public List<payments> getPay() {
 		return pay;
 	}
@@ -113,7 +119,8 @@ public class Users {
 		this.pay = pay;
 	}
 
-	@OneToMany(mappedBy = "usr",cascade =CascadeType.ALL ) 
+	@OneToMany(mappedBy = "usr",cascade =CascadeType.ALL,fetch = FetchType.EAGER ) 
+	@Fetch(FetchMode.SUBSELECT) 
 	public List<IssueRecord> getIssue() {
 		return issue;
 	}

@@ -1,5 +1,7 @@
 package com.app.daos;
 
+import java.util.List;
+
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -19,5 +21,33 @@ public class UserDaoImpl implements IUserDao {
 		String jpql="select u from Users u where u.email:=email and u.passwd:=password";
 		return sf.getCurrentSession().createQuery(jpql, Users.class).setParameter("email", email).setParameter("password", password).getSingleResult();
 	}
+
+	@Override
+	public Users addUserDetails(Users u) {
+		
+	 sf.getCurrentSession().persist(u);
+		return u;
+	}
+	
+	
+	
+//	@GetMapping
+//	public ResponseEntity<?> listEmps() {
+//		System.out.println("in list emps");
+//		List<Employee> allEmps = service.getAllEmps();
+//		if (allEmps.size() == 0)
+//			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+//		return new ResponseEntity<List<Employee>>(allEmps, HttpStatus.OK);
+//	}
+
+	@Override
+	public List<Users> getAllUsers() {
+		
+		String jpql = "select u from Users u ";
+		return sf.getCurrentSession().createQuery(jpql, Users.class).getResultList();
+		
+		
+	}
+	
 
 }
