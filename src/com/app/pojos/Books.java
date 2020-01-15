@@ -95,13 +95,38 @@ public class Books {
 	public void setCopy(List<Copies> copy) {
 		this.copy = copy;
 	}
+	public void addCopies(Copies a)
+	{
+		copy.add(a);
+		a.setBook(this);
+		
+	}
 
+	public void removeCopies(Copies a)
+	{
+		copy.remove(a);
+		a.setBook(null);
+		
+	}
+
+	
 	@Override
 	public String toString() {
 		return "Books [book_id=" + book_id + ", name=" + name + ", author=" + author + ", subject=" + subject
 				+ ", isbn=" + isbn + ", price=" + price + "]";
 	}
 	
-	
+//	//add helper method to add/remove a/c
+//		public void addAccount(BankAccount a)
+//		{
+//			accounts.add(a);
+//			a.setOwner(this);
+//		}
+//		public void removeAccount(BankAccount a)
+//		{
+//			accounts.remove(a);
+//			a.setOwner(null);
+//		}
+
 
 }

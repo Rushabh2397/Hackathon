@@ -29,7 +29,7 @@ public class BookDaoImpl implements IBookDao{
 	@Override
 	public List<Books> findByName(String subject) {
 		// TODO Auto-generated method stub
-		String jpql="select b from Books b where b.subject:=subject ";
+		String jpql="select b from Books b where b.subject=:subject ";
 		
 		
 		return sf.getCurrentSession().createQuery(jpql, Books.class).setParameter("subject", subject).getResultList();

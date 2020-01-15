@@ -7,11 +7,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.daos.IUserDao;
+import com.app.pojos.Copies;
 import com.app.pojos.Users;
 
 @RestController
@@ -47,6 +50,19 @@ public class UserController {
 		if(s.size()==0)
 			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT); 
 		return new ResponseEntity<List<Users>>(s, HttpStatus.OK);
+	}
+	
+	@PostMapping
+	public ResponseEntity<?> addUsers(@RequestBody Users u)
+	{
+		System.out.println("inside addUser");
+		try {
+			return new ResponseEntity<Users>(dao.addUserDetails(u),HttpStatus.CREATED) ;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
+		} 
 	}
 	
 
